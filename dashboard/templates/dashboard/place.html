@@ -1,0 +1,58 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%static 'bootstrap4/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/_global.css'%}">
+    <script src="{%static 'bootstrap4/bootstrap.min.js'%}"></script> 
+    <script src="{%static 'javascript/avaibility.js'%}"></script> 
+    <script src="{%static 'javascript/cotization.js'%}"></script> 
+    <title>Document</title>
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid purple-background text-white">
+        <div class="container">
+                <h1 class="display-4">{{cafeteria.name_place}}</h1>
+                <p class="lead">Menus de las cafeterias de la Universidad Tecnológica de Panamá</p>
+        </div>
+    </div>
+    
+
+        {% for i in turnos %}  <!--Itera los turnos!-->
+        <div id= {{i.name_time}} class="container"> <!--Establece el id para turno!-->
+            <h2>{{i.name_time}}</h2>
+            <table class="table">
+                <tr>
+                    <th scope="col">Alimento</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Disponibilidad</th>
+                    <th scope="col">Cantidad a Cotizar</th>
+                </tr>
+                {%for d in comida%}<!--Itera todas las comidas-->
+                    {%if d.time == i%}<!--Si la comida pertenece a este turno-->
+                    
+                        <tr>
+                                <td >{{d.name_meal}}</td><!--Entoces la muestra-->
+                                <td class="price-{{i.id}}">{{d.price_meal}}</td>
+                                <td class="availability" style="width: 25%;">{{d.availability_meal}}</td>
+                                <td>
+                                    <input type="text" class="form-control quantity-{{i.id}}" style="width: 30%;">
+                                </td>
+                        </tr>
+                    
+                    {%endif%}
+                {%endfor%}
+                
+            </table>
+            <button class="btn" onclick="make_cotization('price-{{i.id}}','quantity-{{i.id}}','cotization{{i.id}}')">Cotizar precios</button>
+            <h3><div id="cotization{{i.id}}"></div></h3>
+        </div>
+        {%endfor%}
+        <script>
+            window.onload = change_classes;
+        </script> 
+</body>
+</html>
