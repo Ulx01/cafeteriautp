@@ -12,13 +12,16 @@ class TimeAdmin(admin.ModelAdmin):
 class TimeInLine(admin.TabularInline):
     model = Time
 
+class SuggestionInLine(admin.TabularInline):
+    model = Suggestion
+
 class PlaceAdmin(admin.ModelAdmin):
-    inlines = [TimeInLine,]
+    inlines = [TimeInLine,SuggestionInLine]
 
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Time,TimeAdmin)
 admin.site.register(Meal)
-admin.site.register(Tipo_Menu)
+
 
 
 

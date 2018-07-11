@@ -19,15 +19,12 @@ class Meal(models.Model):
     price_meal = models.FloatField()
     availability_meal = models.IntegerField()
     time = models.ForeignKey(Time, on_delete = models.CASCADE) #relacion entre los modelos Meal y Time, cada turno tiene diferentes comidas
-    tipo_meal = models.IntegerField(default=0)
+    #tipo_meal = models.IntegerField(default=0)
     #1=>Almidon u harinas 2=>Ensalada 3=>Menestra 4=>Carnes
-    quantity_meal = models.IntegerField(default = 0)
+    #quantity_meal = models.IntegerField(default = 0)
     def __str__(self):
         return self.name_meal
 
-class Tipo_Menu(models.Model):
-    menu_economico = models.FloatField()
-    menu_normal = models.FloatField()
-    menu_jumbo = models.FloatField()
-    def __str__(self):
-        return self.name_meal
+class Suggestion(models.Model):
+    text_suggestion = models.CharField(max_length = 500)
+    place = models.ForeignKey(Place, on_delete = models.CASCADE)
